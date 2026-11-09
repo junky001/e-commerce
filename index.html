@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Shop thousands of products from trusted sellers across Kenya." />
+  <title>Tuunza Supermarket | Shop From Trusted Sellers</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ============ TOP BAR ============ -->
+  <div class="top-bar">
+    <div class="container top-bar__inner">
+      <p>Free delivery on orders above KSh 3,000</p>
+      <ul class="top-bar__links">
+        <li><a href="#sell">Sell on Tuunza</a></li>
+        <li><a href="#help">Help Center</a></li>
+        <li><a href="#track">Track Order</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ============ HEADER ============ -->
+  <header class="site-header" id="top">
+    <div class="container header__inner">
+      <button class="icon-btn menu-toggle" id="menuToggle" aria-label="Open menu">
+        <span class="hamburger"></span>
+      </button>
+
+      <a href="index.html" class="logo">Tuunza<span>.</span></a>
+
+      <form class="search" id="searchForm" role="search">
+        <select id="searchCategory" aria-label="Search category">
+          <option value="all">All</option>
+          <option value="electronics">Electronics</option>
+          <option value="fashion">Fashion</option>
+          <option value="home">Home &amp; Living</option>
+          <option value="beauty">Beauty</option>
+          <option value="sports">Sports</option>
+        </select>
+        <input type="search" id="searchInput" placeholder="Search products, brands and sellers" aria-label="Search" />
+        <button type="submit" class="btn btn--primary">Search</button>
+      </form>
+
+      <div class="header__actions">
+        <button class="header-action" id="accountBtn">
+          <span class="header-action__icon">👤</span>
+          <span class="header-action__label">Account</span>
+        </button>
+        <button class="header-action" id="wishlistBtn">
+          <span class="header-action__icon">♡</span>
+          <span class="header-action__label">Wishlist</span>
+          <span class="badge" id="wishlistCount">0</span>
+        </button>
+        <button class="header-action" id="cartBtn">
+          <span class="header-action__icon">🛒</span>
+          <span class="header-action__label">Cart</span>
+          <span class="badge" id="cartCount">0</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Category navigation -->
+    <nav class="main-nav" id="mainNav" aria-label="Main navigation">
+      <div class="container">
+        <ul class="main-nav__list">
+          <li><a href="#categories" class="active">All Categories</a></li>
+          <li><a href="#flash-sales">Flash Sales</a></li>
+          <li><a href="#featured" data-filter="electronics">Electronics</a></li>
+          <li><a href="#featured" data-filter="fashion">Fashion</a></li>
+          <li><a href="#featured" data-filter="home">Home &amp; Living</a></li>
+          <li><a href="#featured" data-filter="beauty">Beauty</a></li>
+          <li><a href="#featured" data-filter="sports">Sports</a></li>
+          <li><a href="#sellers">Top Sellers</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ============ HERO ============ -->
+    <section class="hero">
+      <div class="container hero__inner">
+        <div class="hero__content">
+          <span class="hero__tag">New Season Deals</span>
+          <h1>Everything you need, from sellers you can trust.</h1>
+          <p>Discover quality products at honest prices, delivered to your door anywhere in Kenya.</p>
+          <div class="hero__buttons">
+            <a href="#featured" class="btn btn--primary btn--lg">Shop Now</a>
+            <a href="#sell" class="btn btn--outline btn--lg">Start Selling</a>
+          </div>
+          <ul class="hero__stats">
+            <li><strong>10K+</strong> Products</li>
+            <li><strong>500+</strong> Sellers</li>
+            <li><strong>47</strong> Counties</li>
+          </ul>
+        </div>
+        <div class="hero__image">
+          <img src="images/items-basket.jpg" alt="Featured products showcase" />
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TRUST BADGES ============ -->
+    <section class="trust">
+      <div class="container trust__grid">
+        <div class="trust__item">
+          <span class="trust__icon">🚚</span>
+          <div>
+            <h3>Fast Delivery</h3>
+            <p>Nationwide shipping</p>
+          </div>
+        </div>
+        <div class="trust__item">
+          <span class="trust__icon">🔒</span>
+          <div>
+            <h3>Secure Payments</h3>
+            <p>M-Pesa &amp; card</p>
+          </div>
+        </div>
+        <div class="trust__item">
+          <span class="trust__icon">↩️</span>
+          <div>
+            <h3>Easy Returns</h3>
+            <p>7-day return policy</p>
+          </div>
+        </div>
+        <div class="trust__item">
+          <span class="trust__icon">💬</span>
+          <div>
+            <h3>24/7 Support</h3>
+            <p>We're here to help</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CATEGORIES ============ -->
+    <section class="section" id="categories">
+      <div class="container">
+        <div class="section__head">
+          <h2>Shop by Category</h2>
+          <a href="#featured" class="link-more">View all →</a>
+        </div>
+        <div class="category-grid">
+          <a href="#featured" class="category-card" data-filter="electronics">
+            <img src="images/Electronics.jpg" alt="" />
+            <h3>Electronics</h3>
+          </a>
+          <a href="#featured" class="category-card" data-filter="fashion">
+            <img src="images/Fashion.jpg" alt="" />
+            <h3>Fashion</h3>
+          </a>
+          <a href="#featured" class="category-card" data-filter="home">
+            <img src="images/home.jpg" alt="" />
+            <h3>Home &amp; Living</h3>
+          </a>
+          <a href="#featured" class="category-card" data-filter="beauty">
+            <img src="images/Beauty.jpg" alt="" />
+            <h3>Beauty</h3>
+          </a>
+          <a href="#featured" class="category-card" data-filter="sports">
+            <img src="images/Sports.jpg" alt="" />
+            <h3>Sports</h3>
+          </a>
+          <a href="#featured" class="category-card" data-filter="all">
+            <img src="images/fruits-basket.jpg" alt="" />
+            <h3>See More</h3>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FLASH SALES ============ -->
+    <section class="section section--tinted" id="flash-sales">
+      <div class="container">
+        <div class="section__head">
+          <div class="flash-head">
+            <h2>⚡ Flash Sales</h2>
+            <div class="countdown" id="countdown" aria-label="Time left">
+              <span class="countdown__box"><b id="cdHours">00</b>h</span>
+              <span class="countdown__box"><b id="cdMinutes">00</b>m</span>
+              <span class="countdown__box"><b id="cdSeconds">00</b>s</span>
+            </div>
+          </div>
+          <a href="#featured" class="link-more">See all deals →</a>
+        </div>
+
+        <div class="product-grid" id="flashGrid">
+          <article class="product-card" data-id="101" data-category="electronics">
+            <span class="product-card__tag">-35%</span>
+            <button class="wish-btn" aria-label="Add to wishlist">♡</button>
+            <img src="images/wireless-earbuds.jpg" alt="Wireless earbuds" />
+            <div class="product-card__body">
+              <p class="product-card__seller">by TechHub Kenya</p>
+              <h3 class="product-card__title">Wireless Bluetooth Earbuds</h3>
+              <div class="rating" aria-label="4.5 out of 5">★★★★☆ <span>(128)</span></div>
+              <p class="price"><strong>KSh 1,950</strong> <del>KSh 3,000</del></p>
+              <button class="btn btn--primary btn--block add-to-cart">Add to Cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="102" data-category="electronics">
+            <span class="product-card__tag">-20%</span>
+            <button class="wish-btn" aria-label="Add to wishlist">♡</button>
+            <img src="images/fitness-smartwatch.jpg" alt="Smartwatch" />
+            <div class="product-card__body">
+              <p class="product-card__seller">by GadgetZone</p>
+              <h3 class="product-card__title">Fitness Smartwatch</h3>
+              <div class="rating" aria-label="4 out of 5">★★★★☆ <span>(86)</span></div>
+              <p class="price"><strong>KSh 4,800</strong> <del>KSh 6,000</del></p>
+              <button class="btn btn--primary btn--block add-to-cart">Add to Cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="103" data-category="fashion">
+            <span class="product-card__tag">-40%</span>
+            <button class="wish-btn" aria-label="Add to wishlist">♡</button>
+            <img src="images/white-sneakers.jpg" alt="Casual sneakers" />
+            <div class="product-card__body">
+              <p class="product-card__seller">by Urban Steps</p>
+              <h3 class="product-card__title">Casual White Sneakers</h3>
+              <div class="rating" aria-label="5 out of 5">★★★★★ <span>(214)</span></div>
+              <p class="price"><strong>KSh 2,400</strong> <del>KSh 4,000</del></p>
+              <button class="btn btn--primary btn--block add-to-cart">Add to Cart</button>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="104" data-category="home">
+            <span class="product-card__tag">-25%</span>
+            <button class="wish-btn" aria-label="Add to wishlist">♡</button>
+            <img src="images/electric-blender.jpg" alt="Kitchen blender" />
+            <div class="product-card__body">
+              <p class="product-card__seller">by HomeEssentials</p>
+              <h3 class="product-card__title">1.5L Electric Blender</h3>
+              <div class="rating" aria-label="4 out of 5">★★★★☆ <span>(57)</span></div>
+              <p class="price"><strong>KSh 3,375</strong> <del>KSh 4,500</del></p>
+              <button class="btn btn--primary btn--block add-to-cart">Add to Cart</button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FEATURED PRODUCTS ============ -->
+    <section class="section" id="featured">
+      <div class="container">
+        <div class="section__head">
+          <h2>Featured Products</h2>
+          <div class="toolbar">
+            <label for="sortSelect" class="visually-hidden">Sort products</label>
+            <select id="sortSelect">
+              <option value="default">Sort: Featured</option>
+              <option value="price-asc">Price: Low to High</option>
+              <option value="price-desc">Price: High to Low</option>
+              <option value="rating">Top Rated</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="filter-tabs" id="filterTabs" role="tablist">
+          <button class="filter-tab active" data-filter="all">All</button>
+          <button class="filter-tab" data-filter="electronics">Electronics</button>
+          <button class="filter-tab" data-filter="fashion">Fashion</button>
+          <button class="filter-tab" data-filter="home">Home &amp; Living</button>
+          <button class="filter-tab" data-filter="beauty">Beauty</button>
+          <button class="filter-tab" data-filter="sports">Sports</button>
+        </div>
+
+        <div class="product-grid" id="productGrid">
+
+          <article class="product-card" data-id="201" data-category="electronics" data-price="18500" data-rating="4.6">
+            <button class="wish-btn" aria-label="Add to wishlist">♡</button>
+            <img src="images/laptop-backpack.jpg" alt="Laptop backpack" loading="lazy" />
+            <div class="product-card__body">
+              <p class="product-card__seller">by TechHub Kenya</p>
+              <h3 class="product-card__title">Anti-Theft Laptop Backpack</h3>
+              <div class="rating">★★★★☆ <span>(92)</span></div>
+              <p class="price"><strong>KSh 18,500</strong></p>
+              <div class="product-card__actions">
+                <button class="btn btn--primary add-to-cart">Add to Cart</button>
+                <button class="btn btn--ghost quick-view">Quick View</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="202" data-category="fashion" data-price="1800" data-rating="4.2">
+            <button class="wish-btn" aria-label="Add to wishlist">♡</button>
+            <img src="images/cotton-tshirt.jpg" alt="Cotton t-shirt" loading="lazy" />
+            <div class="product-card__body">
+              <p class="product-card__seller">by Urban Steps</p>
+              <h3 class="product-card__title">Premium Cotton T-Shirt</h3>
+              <div class="rating">★★★★☆ <span>(143)</span></div>
+              <p class="price"><strong>KSh 1,800</strong></p>
+              <div class="product-card__actions">
+                <button class="btn btn--primary add-to-cart">Add to Cart</button>
+                <button class="btn btn--ghost quick-view">Quick View</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="203" data-category="home" data-price="6200" data-rating="4.8">
+            <button class="wish-btn" aria-label="Add to wishlist">♡</button>
+            <img src="images/cotton-beddings.jpg" alt="Bedding set" loading="lazy" />
+            <div class="product-card__body">
+              <p class="product-card__seller">by HomeEssentials</p>
+              <h3 class="product-card__title">Soft Cotton Bedding Set</h3>
+              <div class="rating">★★★★★ <span>(76)</span></div>
+              <p class="price"><strong>KSh 6,200</strong></p>
+              <div class="product-card__actions">
+                <button class="btn btn--primary add-to-cart">Add to Cart</button>
+                <button class="btn btn--ghost quick-view">Quick View</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="204" data-category="beauty" data-price="2300" data-rating="4.4">
+            <button class="wish-btn" aria-label="Add to wishlist">♡</button>
+            <img src="images/skincare.jpg" alt="Skincare set" loading="lazy" />
+            <div class="product-card__body">
+              <p class="product-card__seller">by Glow Naturals</p>
+              <h3 class="product-card__title">Daily Skincare Gift Set</h3>
+              <div class="rating">★★★★☆ <span>(61)</span></div>
+              <p class="price"><strong>KSh 2,300</strong></p>
+              <div class="product-card__actions">
+                <button class="btn btn--primary add-to-cart">Add to Cart</button>
+                <button class="btn btn--ghost quick-view">Quick View</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="205" data-category="sports" data-price="3200" data-rating="4.5">
+            <button class="wish-btn" aria-label="Add to wishlist">♡</button>
+            <img src="images/football.jpg" alt="Football" loading="lazy" />
+            <div class="product-card__body">
+              <p class="product-card__seller">by ProSport KE</p>
+              <h3 class="product-card__title">Match Quality Football</h3>
+              <div class="rating">★★★★☆ <span>(108)</span></div>
+              <p class="price"><strong>KSh 3,200</strong></p>
+              <div class="product-card__actions">
+                <button class="btn btn--primary add-to-cart">Add to Cart</button>
+                <button class="btn btn--ghost quick-view">Quick View</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="206" data-category="electronics" data-price="24900" data-rating="4.7">
+            <button class="wish-btn" aria-label="Add to wishlist">♡</button>
+            <img src="images/android-smartphone.jpg" alt="Smartphone" loading="lazy" />
+            <div class="product-card__body">
+              <p class="product-card__seller">by GadgetZone</p>
+              <h3 class="product-card__title">6.5" Android Smartphone</h3>
+              <div class="rating">★★★★★ <span>(312)</span></div>
+              <p class="price"><strong>KSh 24,900</strong></p>
+              <div class="product-card__actions">
+                <button class="btn btn--primary add-to-cart">Add to Cart</button>
+                <button class="btn btn--ghost quick-view">Quick View</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="207" data-category="fashion" data-price="3900" data-rating="4.3">
+            <button class="wish-btn" aria-label="Add to wishlist">♡</button>
+            <img src="images/leather-handbag.jpg" alt="Leather handbag" loading="lazy" />
+            <div class="product-card__body">
+              <p class="product-card__seller">by Urban Steps</p>
+              <h3 class="product-card__title">Classic Leather Handbag</h3>
+              <div class="rating">★★★★☆ <span>(54)</span></div>
+              <p class="price"><strong>KSh 3,900</strong></p>
+              <div class="product-card__actions">
+                <button class="btn btn--primary add-to-cart">Add to Cart</button>
+                <button class="btn btn--ghost quick-view">Quick View</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="208" data-category="home" data-price="2750" data-rating="4.1">
+            <button class="wish-btn" aria-label="Add to wishlist">♡</button>
+            <img src="images/led-desk-lamp.jpg" alt="LED desk lamp" loading="lazy" />
+            <div class="product-card__body">
+              <p class="product-card__seller">by HomeEssentials</p>
+              <h3 class="product-card__title">LED Desk Lamp</h3>
+              <div class="rating">★★★★☆ <span>(39)</span></div>
+              <p class="price"><strong>KSh 2,750</strong></p>
+              <div class="product-card__actions">
+                <button class="btn btn--primary add-to-cart">Add to Cart</button>
+                <button class="btn btn--ghost quick-view">Quick View</button>
+              </div>
+            </div>
+          </article>
+
+        </div>
+
+        <p class="empty-state" id="emptyState" hidden>No products found. Try a different search or category.</p>
+
+        <div class="center">
+          <button class="btn btn--outline btn--lg" id="loadMoreBtn">Load More Products</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PROMO BANNERS ============ -->
+    <section class="section">
+      <div class="container promo-grid">
+        <a href="#featured" class="promo promo--one">
+          <div>
+            <span>Up to 50% off</span>
+            <h3>Home Makeover Week</h3>
+            <p>Shop now →</p>
+          </div>
+        </a>
+        <a href="#featured" class="promo promo--two">
+          <div>
+            <span>New arrivals</span>
+            <h3>Latest Electronics</h3>
+            <p>Explore →</p>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- ============ TOP SELLERS ============ -->
+    <section class="section section--tinted" id="sellers">
+      <div class="container">
+        <div class="section__head">
+          <h2>Top Sellers</h2>
+          <a href="#sellers" class="link-more">All sellers →</a>
+        </div>
+        <div class="seller-grid">
+          <article class="seller-card">
+            <img src="images/techhub.jpg" alt="" class="seller-card__logo" />
+            <h3>TechHub Kenya</h3>
+            <p class="rating">★★★★★ <span>4.9 · 1.2K sales</span></p>
+            <a href="#" class="btn btn--outline btn--sm">Visit Store</a>
+          </article>
+          <article class="seller-card">
+            <img src="images/urban.jpg" alt="" class="seller-card__logo" />
+            <h3>Urban Steps</h3>
+            <p class="rating">★★★★☆ <span>4.7 · 860 sales</span></p>
+            <a href="#" class="btn btn--outline btn--sm">Visit Store</a>
+          </article>
+          <article class="seller-card">
+            <img src="images/home-essentials.jpg" alt="" class="seller-card__logo" />
+            <h3>HomeEssentials</h3>
+            <p class="rating">★★★★★ <span>4.8 · 940 sales</span></p>
+            <a href="#" class="btn btn--outline btn--sm">Visit Store</a>
+          </article>
+          <article class="seller-card">
+            <img src="images/glow-natural.jpg" alt="" class="seller-card__logo" />
+            <h3>Glow Naturals</h3>
+            <p class="rating">★★★★☆ <span>4.6 · 520 sales</span></p>
+            <a href="#" class="btn btn--outline btn--sm">Visit Store</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SELL CTA ============ -->
+    <section class="sell-cta" id="sell">
+      <div class="container sell-cta__inner">
+        <div>
+          <h2>Have something to sell?</h2>
+          <p>Open your store on Tuunza in minutes and reach customers across Kenya.</p>
+        </div>
+        <a href="#" class="btn btn--light btn--lg" id="becomeSellerBtn">Become a Seller</a>
+      </div>
+    </section>
+
+    <!-- ============ NEWSLETTER ============ -->
+    <section class="section newsletter">
+      <div class="container newsletter__inner">
+        <div>
+          <h2>Get deals in your inbox</h2>
+          <p>Subscribe for exclusive offers and new arrivals.</p>
+        </div>
+        <form class="newsletter__form" id="newsletterForm">
+          <label for="newsletterEmail" class="visually-hidden">Email address</label>
+          <input type="email" id="newsletterEmail" placeholder="Enter your email" required />
+          <button type="submit" class="btn btn--primary">Subscribe</button>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer" id="help">
+    <div class="container footer__grid">
+      <div class="footer__col footer__brand">
+        <a href="index.html" class="logo logo--light">Tuunza<span>.</span></a>
+        <p>Kenya's marketplace for quality products from trusted sellers.</p>
+        <ul class="social">
+          <li><a href="#" aria-label="Facebook">f</a></li>
+          <li><a href="#" aria-label="Twitter">𝕏</a></li>
+          <li><a href="#" aria-label="Instagram">ig</a></li>
+          <li><a href="#" aria-label="WhatsApp">wa</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="#featured">Electronics</a></li>
+          <li><a href="#featured">Fashion</a></li>
+          <li><a href="#featured">Home &amp; Living</a></li>
+          <li><a href="#flash-sales">Flash Sales</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>Customer Care</h4>
+        <ul>
+          <li><a href="#track">Track Your Order</a></li>
+          <li><a href="#">Returns &amp; Refunds</a></li>
+          <li><a href="#">Delivery Info</a></li>
+          <li><a href="#">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About Tuunza</a></li>
+          <li><a href="#sell">Sell on Tuunza</a></li>
+          <li><a href="#">Terms &amp; Conditions</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <div class="container footer__bottom-inner">
+        <p>&copy; <span id="year">2026</span> Tuunza. All rights reserved.</p>
+        <p>We accept: M-Pesa · Visa · Mastercard . Binance . PayPal</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============ OVERLAY ============ -->
+  <div class="overlay" id="overlay"></div>
+
+  <!-- ============ CART DRAWER ============ -->
+  <aside class="drawer" id="cartDrawer" aria-label="Shopping cart" aria-hidden="true">
+    <div class="drawer__head">
+      <h2>Your Cart <span id="drawerCount">(0)</span></h2>
+      <button class="icon-btn close-btn" data-close aria-label="Close cart">✕</button>
+    </div>
+
+    <div class="drawer__body" id="cartItems">
+      <!-- Cart items are injected here by JavaScript. Example item structure: -->
+      <!--
+      <div class="cart-item" data-id="101">
+        <img src="..." alt="" />
+        <div class="cart-item__info">
+          <h4>Product name</h4>
+          <p class="cart-item__seller">by Seller</p>
+          <p class="cart-item__price">KSh 1,950</p>
+          <div class="qty">
+            <button class="qty__btn" data-action="decrease">−</button>
+            <span class="qty__value">1</span>
+            <button class="qty__btn" data-action="increase">+</button>
+          </div>
+        </div>
+        <button class="cart-item__remove" aria-label="Remove item">🗑</button>
+      </div>
+      -->
+      <p class="empty-state" id="cartEmpty">Your cart is empty.</p>
+    </div>
+
+    <div class="drawer__foot">
+      <div class="summary-row"><span>Subtotal</span><strong id="cartSubtotal">KSh 0</strong></div>
+      <div class="summary-row"><span>Delivery</span><span id="cartDelivery">Calculated at checkout</span></div>
+      <button class="btn btn--primary btn--block btn--lg" id="checkoutBtn">Proceed to Checkout</button>
+      <button class="btn btn--ghost btn--block" data-close>Continue Shopping</button>
+    </div>
+  </aside>
+
+  <!-- ============ QUICK VIEW MODAL ============ -->
+  <div class="modal" id="quickViewModal" role="dialog" aria-modal="true" aria-labelledby="qvTitle" aria-hidden="true">
+    <div class="modal__box modal__box--wide">
+      <button class="icon-btn close-btn" data-close aria-label="Close">✕</button>
+      <div class="quick-view">
+        <img id="qvImage" src="" alt="" />
+        <div class="quick-view__info">
+          <p class="product-card__seller" id="qvSeller"></p>
+          <h2 id="qvTitle"></h2>
+          <div class="rating" id="qvRating"></div>
+          <p class="price price--lg" id="qvPrice"></p>
+          <p class="quick-view__desc">High quality product from a verified seller. Delivered fast and backed by our 7-day return policy.</p>
+          <div class="qty qty--lg">
+            <button class="qty__btn" id="qvMinus" aria-label="Decrease quantity">−</button>
+            <span class="qty__value" id="qvQty">1</span>
+            <button class="qty__btn" id="qvPlus" aria-label="Increase quantity">+</button>
+          </div>
+          <button class="btn btn--primary btn--lg btn--block" id="qvAddBtn">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ ACCOUNT MODAL (LOGIN / REGISTER) ============ -->
+  <div class="modal" id="authModal" role="dialog" aria-modal="true" aria-labelledby="authTitle" aria-hidden="true">
+    <div class="modal__box">
+      <button class="icon-btn close-btn" data-close aria-label="Close">✕</button>
+      <div class="auth-tabs">
+        <button class="auth-tab active" data-tab="login">Login</button>
+        <button class="auth-tab" data-tab="register">Register</button>
+      </div>
+
+      <h2 id="authTitle" class="visually-hidden">Account</h2>
+
+      <form class="form" id="loginForm">
+        <div class="field">
+          <label for="loginEmail">Email</label>
+          <input type="email" id="loginEmail" placeholder="you@example.com" required />
+        </div>
+        <div class="field">
+          <label for="loginPassword">Password</label>
+          <input type="password" id="loginPassword" placeholder="Your password" required />
+        </div>
+        <button type="submit" class="btn btn--primary btn--block btn--lg">Login</button>
+      </form>
+
+      <form class="form" id="registerForm" hidden>
+        <div class="field">
+          <label for="regName">Full name</label>
+          <input type="text" id="regName" placeholder="Jane Wanjiku" required />
+        </div>
+        <div class="field">
+          <label for="regEmail">Email</label>
+          <input type="email" id="regEmail" placeholder="you@example.com" required />
+        </div>
+        <div class="field">
+          <label for="regPhone">Phone number</label>
+          <input type="tel" id="regPhone" placeholder="07XX XXX XXX" required />
+        </div>
+        <div class="field">
+          <label for="regPassword">Password</label>
+          <input type="password" id="regPassword" placeholder="Create a password" minlength="6" required />
+        </div>
+        <div class="field field--check">
+          <input type="checkbox" id="regSeller" />
+          <label for="regSeller">I want to sell on Tuunza</label>
+        </div>
+        <button type="submit" class="btn btn--primary btn--block btn--lg">Create Account</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============ CHECKOUT MODAL ============ -->
+  <div class="modal" id="checkoutModal" role="dialog" aria-modal="true" aria-labelledby="checkoutTitle" aria-hidden="true">
+    <div class="modal__box modal__box--wide">
+      <button class="icon-btn close-btn" data-close aria-label="Close">✕</button>
+      <h2 id="checkoutTitle">Checkout</h2>
+
+      <div class="checkout">
+        <form class="form" id="checkoutForm">
+          <fieldset>
+            <legend>Delivery details</legend>
+            <div class="field">
+              <label for="coName">Full name</label>
+              <input type="text" id="coName" required />
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <label for="coPhone">Phone</label>
+                <input type="tel" id="coPhone" placeholder="07XX XXX XXX" required />
+              </div>
+              <div class="field">
+                <label for="coEmail">Email</label>
+                <input type="email" id="coEmail" required />
+              </div>
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <label for="coCounty">County</label>
+                <select id="coCounty" required>
+                  <option value="">Select county</option>
+                  <option>Nairobi</option>
+                  <option>Mombasa</option>
+                  <option>Kisumu</option>
+                  <option>Nakuru</option>
+                  <option>Siaya</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="coTown">Town / Area</label>
+                <input type="text" id="coTown" required />
+              </div>
+            </div>
+            <div class="field">
+              <label for="coAddress">Street address / landmark</label>
+              <textarea id="coAddress" rows="2" required></textarea>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Payment method</legend>
+            <label class="pay-option">
+              <input type="radio" name="payment" value="mpesa" checked />
+              <span>M-Pesa</span>
+            </label>
+            <label class="pay-option">
+              <input type="radio" name="payment" value="card" />
+              <span>Card (Visa / Mastercard)</span>
+            </label>
+           
+            <label class="pay-option">
+              <input type="radio" name="payment" value="binance" />
+              <span>Binance</span>
+            </label>
+            <label class="pay-option">
+              <input type="radio" name="payment" value="paypal" />
+              <span>PayPal</span>
+            </label>
+            <label class="pay-option">
+              <input type="radio" name="payment" value="cod" />
+              <span>Pay on Delivery</span>
+            </label>
+          </fieldset>
+
+          <button type="submit" class="btn btn--primary btn--lg btn--block">Place Order</button>
+        </form>
+
+        <aside class="order-summary">
+          <h3>Order Summary</h3>
+          <ul id="summaryList"></ul>
+          <div class="summary-row"><span>Subtotal</span><span id="sumSubtotal">KSh 0</span></div>
+          <div class="summary-row"><span>Delivery</span><span id="sumDelivery">KSh 0</span></div>
+          <div class="summary-row summary-row--total"><span>Total</span><strong id="sumTotal">KSh 0</strong></div>
+        </aside>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ TOAST ============ -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <!-- ============ BACK TO TOP ============ -->
+  <a href="#top" class="back-to-top" id="backToTop" aria-label="Back to top">↑</a>
+  <script src="products.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

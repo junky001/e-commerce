@@ -1,0 +1,114 @@
+/* =========================================================
+   SOKO | product.css  (product detail page only)
+   ========================================================= */
+.product-page { padding: 1.5rem 0 3.5rem; }
+
+.breadcrumb { display: flex; flex-wrap: wrap; gap: 0.5rem; font-size: 0.85rem; color: var(--muted); margin-bottom: 1.25rem; }
+.breadcrumb a:hover { color: var(--primary); }
+.breadcrumb span:last-child { color: var(--text); font-weight: 500; }
+
+.not-found { text-align: center; padding: 5rem 1rem; display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+.not-found p { color: var(--muted); }
+
+/* ---------- Main layout ---------- */
+.pd { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: start; }
+
+/* Gallery */
+.pd__gallery { position: sticky; top: 100px; }
+.pd__main-img {
+  position: relative; overflow: hidden; border-radius: var(--radius);
+  border: 1px solid var(--border); background: var(--bg-tint); cursor: zoom-in;
+}
+.pd__main-img img { width: 100%; aspect-ratio: 1; object-fit: cover; transition: transform 0.2s ease; }
+.pd__main-img.zoom img { transform: scale(1.8); }
+.pd__thumbs { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.6rem; margin-top: 0.75rem; }
+.pd__thumbs:empty { display: none; }
+.pd__thumb { border: 2px solid var(--border); border-radius: var(--radius-sm); overflow: hidden; padding: 0; transition: var(--transition); }
+.pd__thumb img { width: 100%; aspect-ratio: 1; object-fit: cover; }
+.pd__thumb:hover { border-color: var(--muted); }
+.pd__thumb.active { border-color: var(--primary); }
+
+/* Info */
+.pd__info { display: flex; flex-direction: column; gap: 0.9rem; align-items: flex-start; }
+.pd__seller { color: var(--primary); font-weight: 600; font-size: 0.92rem; }
+.pd__seller:hover { text-decoration: underline; }
+.pd__info h1 { font-size: clamp(1.5rem, 3vw, 2.1rem); letter-spacing: -0.5px; }
+.pd__price { display: flex; align-items: baseline; gap: 1rem; flex-wrap: wrap; }
+.pd__price .price { margin: 0; padding: 0; }
+.pd__price .price del { font-size: 1.05rem; }
+.pd__save { background: #dcfce7; color: var(--success); font-weight: 700; font-size: 0.85rem; padding: 0.2rem 0.7rem; border-radius: 999px; }
+.pd__short { color: var(--muted); }
+.pd__stock { font-size: 0.9rem; font-weight: 600; color: var(--success); }
+.pd__stock.low { color: #d97706; }
+.pd__stock.out { color: var(--danger); }
+
+.pd__buy { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; width: 100%; }
+.pd__buy .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+.pd__wish {
+  position: static; width: 48px; height: 48px; border: 1px solid var(--border);
+  box-shadow: none; font-size: 1.3rem;
+}
+
+.pd__perks { width: 100%; border: 1px solid var(--border); border-radius: var(--radius); }
+.pd__perks li { display: flex; align-items: center; gap: 0.9rem; padding: 0.8rem 1rem; }
+.pd__perks li + li { border-top: 1px solid var(--border); }
+.pd__perks li > span { font-size: 1.4rem; }
+.pd__perks strong { display: block; font-size: 0.92rem; }
+.pd__perks small { color: var(--muted); font-size: 0.82rem; }
+
+/* ---------- Tabs ---------- */
+.pd-tabs { margin-top: 3rem; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+.pd-tabs__nav { display: flex; background: var(--bg-tint); border-bottom: 1px solid var(--border); overflow-x: auto; }
+.pd-tabs__tab {
+  padding: 1rem 1.5rem; font-weight: 600; color: var(--muted);
+  border-bottom: 3px solid transparent; margin-bottom: -1px; white-space: nowrap; transition: var(--transition);
+}
+.pd-tabs__tab:hover { color: var(--dark); }
+.pd-tabs__tab.active { color: var(--primary); border-bottom-color: var(--primary); background: #fff; }
+.pd-tabs__panel { padding: 1.75rem; }
+.pd-tabs__panel p { max-width: 75ch; color: var(--text); }
+
+.specs { width: 100%; max-width: 640px; border-collapse: collapse; }
+.specs th, .specs td { text-align: left; padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); font-size: 0.95rem; }
+.specs th { width: 35%; background: var(--bg-tint); font-weight: 600; }
+
+/* Reviews */
+.reviews { display: grid; grid-template-columns: 220px 1fr; gap: 2.5rem; align-items: start; }
+.reviews__summary { text-align: center; background: var(--bg-tint); border-radius: var(--radius); padding: 1.5rem 1rem; }
+.reviews__score { font-size: 3rem; font-weight: 800; color: var(--dark); line-height: 1; }
+.reviews__count { color: var(--muted); font-size: 0.85rem; margin-top: 0.4rem; }
+.reviews__list { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem; }
+.review { padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
+.review__head { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 0.35rem; }
+.review__head strong { color: var(--dark); }
+.review__head small { color: var(--muted); }
+.review__tag { background: var(--bg-tint); color: var(--muted); font-size: 0.7rem; padding: 0.1rem 0.5rem; border-radius: 999px; }
+.review-form { background: var(--bg-tint); border-radius: var(--radius); padding: 1.25rem; }
+.review-form h3 { font-size: 1.05rem; }
+
+/* ---------- Seller box ---------- */
+.seller-box {
+  display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap;
+  margin-top: 2.5rem; padding: 1.25rem 1.5rem; border: 1px solid var(--border); border-radius: var(--radius);
+}
+.seller-box > div { flex: 1; min-width: 180px; }
+.seller-box h2 { font-size: 1.25rem; }
+.seller-box__label { font-size: 0.8rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* ---------- Related ---------- */
+.related { margin-top: 3.5rem; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 820px) {
+  .pd { grid-template-columns: 1fr; gap: 1.5rem; }
+  .pd__gallery { position: static; }
+  .reviews { grid-template-columns: 1fr; gap: 1.5rem; }
+  .pd-tabs__panel { padding: 1.25rem; }
+  .pd-tabs__tab { padding: 0.85rem 1.1rem; }
+  .pd__main-img { cursor: default; }
+}
+@media (max-width: 600px) {
+  .pd__buy .btn { flex: 1; }
+  .pd__buy .qty { order: -1; width: 100%; justify-content: space-between; }
+  .pd__buy .qty .qty__value { flex: 1; }
+}
