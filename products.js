@@ -1,7 +1,23 @@
 /* =========================================================
    SOKO | products.js
    Images are loaded from the /images folder.
-   ========================================================= */
+   ========================================================= */   /* ---------- Image fallback (works offline) ---------- */
+   const FALLBACK_IMG = 'data:image/svg+xml;utf8,' + encodeURIComponent(
+     '<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300">' +
+     '<rect width="300" height="300" fill="#f1f3f5"/>' +
+     '<g fill="none" stroke="#b6bcc6" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">' +
+     '<rect x="95" y="105" width="110" height="90" rx="10"/><circle cx="130" cy="136" r="9"/>' +
+     '<path d="M100 188l32-30 24 22 18-16 31 28"/></g>' +
+     '<text x="150" y="228" font-family="Arial,sans-serif" font-size="16" text-anchor="middle" fill="#9aa1ad">No image yet</text></svg>'
+   );
+   document.addEventListener('error', (e) => {
+     const img = e.target;
+     if (img.tagName === 'IMG' && img.dataset.fallback !== '1') {
+       img.dataset.fallback = '1';
+       img.src = FALLBACK_IMG;
+     }
+   }, true);
+
 const PRODUCTS = [
   // ---- Regular catalogue ----
   { id: 201, title: "Anti-Theft Laptop Backpack", seller: "TechHub Kenya", category: "electronics", price: 3500, rating: 4.6, reviews: 92, image: "images/laptop-backpack.jpg" },

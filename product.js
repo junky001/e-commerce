@@ -202,7 +202,8 @@
 
     // Breadcrumb
     $('#bcCategory').textContent = categoryName;
-    $('#bcCategory').href = `index.html?cat=${p.category}#featured`;
+    
+$('#bcCategory').href = `shop.html?cat=${p.category}`;
     $('#bcTitle').textContent = p.title;
 
     // Gallery
@@ -398,12 +399,13 @@
   function bindGlobalEvents() {
     $('#cartBtn').addEventListener('click', openDrawer);
     $('#checkoutBtn').addEventListener('click', () => {
-      if (state.cart.length) location.href = 'index.html?checkout=1';
+         if (state.cart.length) location.href = 'index.html?checkout=1';
     });
 
     $('#wishlistBtn').addEventListener('click', () => {
       if (!state.wishlist.length) return toast('Your wishlist is empty. Tap the ♡ on any product.');
-      location.href = 'index.html?wishlist=1#featured';
+     
+    location.href = 'shop.html?wishlist=1';
     });
 
     $('#accountBtn').addEventListener('click', () => { location.href = 'index.html'; });
@@ -412,7 +414,7 @@
     $('#searchForm').addEventListener('submit', (e) => {
       e.preventDefault();
       const q = $('#searchInput').value.trim();
-      location.href = `index.html${q ? `?q=${encodeURIComponent(q)}` : ''}#featured`;
+     location.href = `shop.html${q ? `?q=${encodeURIComponent(q)}` : ''}`;
     });
 
     document.addEventListener('click', (e) => {
