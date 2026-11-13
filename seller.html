@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Manage your Soko store: products, orders and earnings." />
+  <title>Seller Center | Soko</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="seller.css" />
+</head>
+<body class="sc-body">
+
+  <!-- ============ HEADER ============ -->
+  <header class="sc-header">
+    <div class="container sc-header__inner">
+      <a href="index.html" class="logo">Soko<span>.</span></a>
+      <span class="sc-tag">Seller Center</span>
+      <nav class="sc-header__right" aria-label="Seller links">
+        <a href="shop.html" class="sc-link">Back to shop</a>
+        <a href="shop.html" class="sc-link" id="viewStore" hidden>View my store</a>
+        <button class="btn btn--ghost btn--sm" id="logoutBtn" hidden>Log out</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container sc-main">
+
+    <!-- Not logged in / not a seller -->
+    <section class="gate" id="gate" hidden>
+      <div class="gate__box">
+        <p class="gate__icon" id="gateIcon">🏪</p>
+        <h1 id="gateTitle"></h1>
+        <p id="gateText"></p>
+        <div class="gate__actions" id="gateActions"></div>
+      </div>
+    </section>
+
+    <!-- Store setup (first time) -->
+    <section class="gate" id="setup" hidden>
+      <div class="gate__box gate__box--form">
+        <h1>Set up your store</h1>
+        <p>Choose a store name shoppers will see. You can't change the name later, so pick one you like.</p>
+        <form class="form" id="setupForm" novalidate>
+          <div class="field">
+            <label for="stName">Store name</label>
+            <input type="text" id="stName" maxlength="30" placeholder="e.g. Kisumu Gadgets" required />
+            <small class="field-error" id="stNameError" hidden></small>
+          </div>
+          <div class="field">
+            <label for="stDesc">Short description <span class="optional">(optional)</span></label>
+            <textarea id="stDesc" rows="3" maxlength="200" placeholder="What do you sell?"></textarea>
+          </div>
+          <div class="field">
+            <label for="stPhone">M-Pesa number for payouts</label>
+            <input type="tel" id="stPhone" placeholder="07XX XXX XXX" required />
+            <small class="field-error" id="stPhoneError" hidden></small>
+          </div>
+          <button type="submit" class="btn btn--primary btn--lg btn--block">Open my store</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Dashboard -->
+    <div class="dash" id="dash" hidden>
+
+      <aside class="dash__nav" aria-label="Dashboard menu">
+        <div class="store-card">
+          <div class="store-card__logo" id="storeInitial">S</div>
+          <div>
+            <strong id="storeName"></strong>
+            <small>Seller account</small>
+          </div>
+        </div>
+        <nav class="dash__links">
+          <a href="#overview" data-panel="overview">📊 <span>Overview</span></a>
+          <a href="#products" data-panel="products">📦 <span>Products</span></a>
+          <a href="#orders" data-panel="orders">🧾 <span>Orders</span> <b class="nav-badge" id="navOrders" hidden>0</b></a>
+          <a href="#settings" data-panel="settings">⚙️ <span>Store settings</span></a>
+        </nav>
+      </aside>
+
+      <div class="dash__content">
+
+        <!-- ===== OVERVIEW ===== -->
+        <section class="panel" id="panel-overview">
+          <div class="panel__head"><h2>Overview</h2></div>
+          <div class="stats" id="stats"></div>
+
+          <div class="grid-2">
+            <div class="card">
+              <h3>Sales, last 7 days</h3>
+              <div class="chart" id="chart" role="img" aria-label="Bar chart of sales for the last 7 days"></div>
+            </div>
+            <div class="card">
+              <h3>Needs your attention</h3>
+              <ul class="attn" id="attention"></ul>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card__head"><h3>Recent orders</h3><a href="#orders" class="link-more">View all →</a></div>
+            <div class="table-wrap"><table class="table" id="recentOrders"></table></div>
+            <p class="empty" id="recentEmpty" hidden>No orders yet. When shoppers buy your products, they appear here.</p>
+          </div>
+        </section>
+
+        <!-- ===== PRODUCTS ===== -->
+        <section class="panel" id="panel-products" hidden>
+          <div class="panel__head">
+            <h2>Products</h2>
+            <button class="btn btn--primary" id="addProductBtn">+ Add product</button>
+          </div>
+
+          <div class="toolbar-row">
+            <input type="search" id="pSearch" placeholder="Search your products" aria-label="Search your products" />
+            <select id="pFilter" aria-label="Filter products">
+              <option value="all">All products</option>
+              <option value="active">Visible in shop</option>
+              <option value="hidden">Hidden</option>
+              <option value="low">Low stock</option>
+              <option value="out">Out of stock</option>
+            </select>
+          </div>
+
+          <div class="card card--flush">
+            <div class="table-wrap"><table class="table" id="productsTable"></table></div>
+            <div class="empty" id="productsEmpty" hidden></div>
+          </div>
+        </section>
+
+        <!-- ===== ORDERS ===== -->
+        <section class="panel" id="panel-orders" hidden>
+          <div class="panel__head"><h2>Orders</h2></div>
+          <div class="toolbar-row">
+            <input type="search" id="oSearch" placeholder="Search by order number or customer" aria-label="Search orders" />
+            <select id="oFilter" aria-label="Filter orders">
+              <option value="all">All statuses</option>
+              <option value="Processing">Processing</option>
+              <option value="Shipped">Shipped</option>
+              <option value="Delivered">Delivered</option>
+              <option value="Cancelled">Cancelled</option>
+            </select>
+          </div>
+          <div id="ordersList"></div>
+          <div class="card empty" id="ordersEmpty" hidden></div>
+        </section>
+
+        <!-- ===== SETTINGS ===== -->
+        <section class="panel" id="panel-settings" hidden>
+          <div class="panel__head"><h2>Store settings</h2></div>
+          <div class="card card--narrow">
+            <form class="form" id="settingsForm" novalidate>
+              <div class="field">
+                <label for="setName">Store name</label>
+                <input type="text" id="setName" disabled />
+                <small class="hint">The store name can't be changed once your store is open.</small>
+              </div>
+              <div class="field">
+                <label for="setDesc">Short description</label>
+                <textarea id="setDesc" rows="3" maxlength="200"></textarea>
+              </div>
+              <div class="field">
+                <label for="setPhone">M-Pesa number for payouts</label>
+                <input type="tel" id="setPhone" required />
+                <small class="field-error" id="setPhoneError" hidden></small>
+              </div>
+              <button type="submit" class="btn btn--primary">Save changes</button>
+            </form>
+          </div>
+          <p class="hint hint--block">Soko keeps a <strong id="commissionText">10%</strong> commission on each sale. The rest is yours.</p>
+        </section>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- ============ PRODUCT MODAL ============ -->
+  <div class="modal" id="productModal" role="dialog" aria-modal="true" aria-labelledby="pmTitle" aria-hidden="true">
+    <div class="modal__box modal__box--wide">
+      <button class="icon-btn close-btn" data-close aria-label="Close">✕</button>
+      <h2 id="pmTitle">Add product</h2>
+
+      <form class="form" id="productForm" novalidate>
+        <div class="field">
+          <label for="pTitle">Product name</label>
+          <input type="text" id="pTitle" maxlength="80" placeholder="e.g. Wireless Bluetooth Speaker" required />
+          <small class="field-error" id="pTitleError" hidden></small>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="pCategory">Category</label>
+            <select id="pCategory" required>
+              <option value="">Select category</option>
+              <option value="electronics">Electronics</option>
+              <option value="fashion">Fashion</option>
+              <option value="home">Home &amp; Living</option>
+              <option value="beauty">Beauty</option>
+              <option value="sports">Sports</option>
+            </select>
+            <small class="field-error" id="pCategoryError" hidden></small>
+          </div>
+          <div class="field">
+            <label for="pStock">Stock quantity</label>
+            <input type="number" id="pStock" min="0" max="9999" step="1" inputmode="numeric" placeholder="e.g. 20" required />
+            <small class="field-error" id="pStockError" hidden></small>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="pPrice">Price (KSh)</label>
+            <input type="number" id="pPrice" min="1" step="1" inputmode="numeric" placeholder="e.g. 2500" required />
+            <small class="field-error" id="pPriceError" hidden></small>
+          </div>
+          <div class="field">
+            <label for="pOldPrice">Old price <span class="optional">(optional, shows a discount)</span></label>
+            <input type="number" id="pOldPrice" min="1" step="1" inputmode="numeric" placeholder="e.g. 3500" />
+            <small class="field-error" id="pOldPriceError" hidden></small>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="pDesc">Description</label>
+          <textarea id="pDesc" rows="4" maxlength="600" placeholder="Describe your product: materials, size, what's in the box…"></textarea>
+        </div>
+
+        <div class="field">
+          <label for="pImages">Photos <span class="optional">(up to 4, the first is the main photo)</span></label>
+          <input type="file" id="pImages" accept="image/*" multiple />
+          <div class="img-preview" id="imgPreview"></div>
+          <small class="field-error" id="pImagesError" hidden></small>
+        </div>
+
+        <label class="check check--box">
+          <input type="checkbox" id="pActive" checked />
+          <span><strong>Visible in the shop</strong><small>Turn this off to hide the product without deleting it.</small></span>
+        </label>
+
+        <div class="modal__actions">
+          <button type="button" class="btn btn--ghost" data-close>Cancel</button>
+          <button type="submit" class="btn btn--primary" id="pSaveBtn">Save product</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="products.js"></script>
+  <script src="seller.js"></script>
+</body>
+</html>

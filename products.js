@@ -43,3 +43,15 @@ const PRODUCTS = [
   { id: 103, title: "Casual White Sneakers", seller: "Urban Steps", category: "fashion", price: 2400, oldPrice: 4000, rating: 4.9, reviews: 214, flash: true, image: "images/white-sneakers.jpg" },
   { id: 104, title: "1.5L Electric Blender", seller: "HomeEssentials", category: "home", price: 3375, oldPrice: 4500, rating: 4.0, reviews: 57, flash: true, image: "images/electric-blender.jpg" }
 ];
+
+/* ---------- Seller-added products ----------
+   Products added in the Seller Center are saved in the browser and
+   joined to the list here (newest first), so every page sees them. */
+try {
+  const stripTags = (t) => String(t == null ? '' : t).replace(/[<>]/g, '').replace(/"/g, '″');
+  const sellerAdded = JSON.parse(localStorage.getItem('soko_seller_products') || '[]')
+    .filter((p) => p && p.active !== false)
+    .sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0))
+    .map((p) => ({ ...p, title: stripTags(p.title), seller: stripTags(p.seller), description: stripTags(p.description) }));
+  PRODUCTS.unshift(...sellerAdded);
+} catch (e) { /* ignore broken saved data */ }

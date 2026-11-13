@@ -354,7 +354,8 @@
     loginUser(user);
     e.target.reset();
     closeAll();
-    toast(`Welcome back, ${user.name.split(' ')[0]}!`, 'success');
+           toast(`Welcome back, ${user.name.split(' ')[0]}!`, 'success');
+       if (new URLSearchParams(location.search).get('next') === 'seller') location.href = 'seller.html';
   });
 
   $('#registerForm').addEventListener('submit', (e) => {
@@ -374,7 +375,8 @@
     loginUser(user);
     e.target.reset();
     closeAll();
-    toast(`Account created. Welcome, ${user.name.split(' ')[0]}!`, 'success');
+           toast(`Account created. Welcome, ${user.name.split(' ')[0]}!`, 'success');
+       if (user.seller) location.href = 'seller.html';
   });
 
   /* =======================================================
@@ -412,6 +414,14 @@
       phone.focus();
       return toast('Enter a valid Kenyan phone number', 'error');
     }
+           // Stock check for products added by sellers
+       const sellerProducts = store.get('soko_seller_products', []);
+       for (const i of state.cart) {
+         const sp = sellerProducts.find((x) => x.id === i.id);
+         if (sp && typeof sp.stock === 'number' && i.qty > sp.stock) {
+           return toast(sp.stock === 0 ? `${sp.title} is out of stock` : `Only ${sp.stock} left of ${sp.title}`, 'error');
+         }
+       }
 
     const { subtotal, delivery, total } = totals();
     const order = {
@@ -437,6 +447,14 @@
     const orders = store.get('soko_orders', []);
     orders.push(order);
     store.set('soko_orders', orders);
+
+       // Take the bought quantities off the sellers' stock
+       const allSeller = store.get('soko_seller_products', []);
+       order.items.forEach((it) => {
+         const sp = allSeller.find((x) => x.id === it.id);
+         if (sp && typeof sp.stock === 'number') sp.stock = Math.max(0, sp.stock - it.qty);
+       });
+       store.set('soko_seller_products', allSeller);
 
     state.cart = [];
     saveCart();
@@ -611,5 +629,6 @@
     syncFilterTabs();
     renderProducts();
   }
-  if (params.get('checkout') === '1') openCheckout();
+   if (params.get('auth') === 'login') { setAuthTab('login'); openModal($('#authModal')); }
+  if (params.get('auth') === 'seller') { setAuthTab('register'); $('#regSeller').checked = true; openModal($('#authModal')); }
 })();
