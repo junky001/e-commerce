@@ -614,9 +614,9 @@
   updateAccountUI();
   tickCountdown();
   setInterval(tickCountdown, 1000);
-   $('#year').textContent = new Date().getFullYear();
+     $('#year').textContent = new Date().getFullYear();
 
-  // Links coming from product.html (?q=, ?cat=, ?wishlist=1, ?checkout=1)
+  // Links coming from other pages (?q=, ?cat=, ?wishlist=1, ?checkout=1, ?auth=)
   const params = new URLSearchParams(location.search);
   if (params.get('q')) {
     state.search = params.get('q');
@@ -629,6 +629,7 @@
     syncFilterTabs();
     renderProducts();
   }
-   if (params.get('auth') === 'login') { setAuthTab('login'); openModal($('#authModal')); }
+  if (params.get('checkout') === '1') openCheckout();
+  if (params.get('auth') === 'login') { setAuthTab('login'); openModal($('#authModal')); }
   if (params.get('auth') === 'seller') { setAuthTab('register'); $('#regSeller').checked = true; openModal($('#authModal')); }
 })();
