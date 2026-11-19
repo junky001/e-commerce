@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="See and track your Soko orders." />
+  <title>My Orders | Soko</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="seller.css" />
+  <link rel="stylesheet" href="orders.css" />
+</head>
+<body class="sc-body">
+
+  <!-- ============ HEADER ============ -->
+  <header class="sc-header">
+    <div class="container sc-header__inner">
+      <a href="index.html" class="logo">Soko<span>.</span></a>
+      <span class="sc-tag">My Account</span>
+      <nav class="sc-header__right" aria-label="Account links">
+        <a href="shop.html" class="sc-link">Shop</a>
+        <a href="track.html" class="sc-link">Track an order</a>
+        <button class="btn btn--ghost btn--sm" id="logoutBtn" hidden>Log out</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container sc-main orders-main">
+
+    <!-- Logged out -->
+    <section class="gate" id="gate" hidden>
+      <div class="gate__box">
+        <p class="gate__icon">🧾</p>
+        <h1>Your orders</h1>
+        <p>Log in to see everything you've ordered and follow your deliveries.</p>
+        <div class="gate__actions">
+          <a class="btn btn--primary btn--lg" href="index.html?auth=login&next=orders">Log in</a>
+          <a class="btn btn--outline btn--lg" href="index.html?auth=register&next=orders">Create account</a>
+        </div>
+        <p class="hint hint--block">Ordered without an account? <a href="track.html" class="link-more">Track it with your order number</a>.</p>
+      </div>
+    </section>
+
+    <!-- Logged in -->
+    <div id="ordersPage" hidden>
+      <div class="panel__head">
+        <div>
+          <h2>My Orders</h2>
+          <p class="hint" id="whoami"></p>
+        </div>
+        <a href="track.html" class="btn btn--outline">Track another order</a>
+      </div>
+
+      <div class="toolbar-row">
+        <input type="search" id="oSearch" placeholder="Search by order number or product" aria-label="Search orders" />
+        <select id="oFilter" aria-label="Filter orders">
+          <option value="all">All orders</option>
+          <option value="progress">In progress</option>
+          <option value="Delivered">Delivered</option>
+          <option value="Cancelled">Cancelled</option>
+        </select>
+      </div>
+
+      <div id="ordersList"></div>
+      <div class="card empty" id="ordersEmpty" hidden></div>
+    </div>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="products.js"></script>
+  <script src="order-utils.js"></script>
+  <script src="orders.js"></script>
+</body>
+</html>

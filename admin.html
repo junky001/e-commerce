@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Admin | Soko</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="seller.css" />
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body class="sc-body">
+
+  <!-- ============ HEADER ============ -->
+  <header class="sc-header">
+    <div class="container sc-header__inner">
+      <a href="index.html" class="logo">Soko<span>.</span></a>
+      <span class="sc-tag sc-tag--admin">Admin</span>
+      <nav class="sc-header__right" aria-label="Admin links">
+        <a href="shop.html" class="sc-link">View site</a>
+        <button class="btn btn--ghost btn--sm" id="logoutBtn" hidden>Log out</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container sc-main">
+
+    <!-- Login -->
+    <section class="gate" id="gate" hidden>
+      <div class="gate__box gate__box--form">
+        <h1>Admin login</h1>
+        <p>Sign in to review stores, products and orders.</p>
+        <form class="form" id="loginForm" novalidate>
+          <div class="field">
+            <label for="adEmail">Email</label>
+            <input type="email" id="adEmail" autocomplete="username" required />
+          </div>
+          <div class="field">
+            <label for="adPassword">Password</label>
+            <input type="password" id="adPassword" autocomplete="current-password" required />
+          </div>
+          <small class="field-error" id="loginError" hidden></small>
+          <button type="submit" class="btn btn--primary btn--lg btn--block">Log in</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Dashboard -->
+    <div class="dash" id="dash" hidden>
+
+      <aside class="dash__nav" aria-label="Admin menu">
+        <nav class="dash__links">
+          <a href="#overview" data-panel="overview">📊 <span>Overview</span></a>
+          <a href="#stores" data-panel="stores">🏪 <span>Stores</span> <b class="nav-badge" id="navStores" hidden>0</b></a>
+          <a href="#products" data-panel="products">📦 <span>Products</span> <b class="nav-badge" id="navProducts" hidden>0</b></a>
+          <a href="#orders" data-panel="orders">🧾 <span>Orders</span></a>
+        </nav>
+      </aside>
+
+      <div class="dash__content">
+
+        <!-- ===== OVERVIEW ===== -->
+        <section class="panel" id="panel-overview">
+          <div class="panel__head"><h2>Overview</h2></div>
+          <div class="stats" id="stats"></div>
+          <div class="card">
+            <h3>Waiting for your review</h3>
+            <ul class="attn" id="attention"></ul>
+          </div>
+        </section>
+
+        <!-- ===== STORES ===== -->
+        <section class="panel" id="panel-stores" hidden>
+          <div class="panel__head"><h2>Stores</h2></div>
+          <div class="toolbar-row">
+            <input type="search" id="sSearch" placeholder="Search by store, owner or email" aria-label="Search stores" />
+            <select id="sFilter" aria-label="Filter stores">
+              <option value="all">All stores</option>
+              <option value="pending">Pending approval</option>
+              <option value="approved">Approved</option>
+              <option value="rejected">Rejected</option>
+              <option value="suspended">Suspended</option>
+            </select>
+          </div>
+          <div class="card card--flush">
+            <div class="table-wrap"><table class="table" id="storesTable"></table></div>
+            <div class="empty" id="storesEmpty" hidden></div>
+          </div>
+        </section>
+
+        <!-- ===== PRODUCTS ===== -->
+        <section class="panel" id="panel-products" hidden>
+          <div class="panel__head"><h2>Products</h2></div>
+          <div class="toolbar-row">
+            <input type="search" id="pSearch" placeholder="Search by product or store" aria-label="Search products" />
+            <select id="pFilter" aria-label="Filter products">
+              <option value="all">All products</option>
+              <option value="pending">Pending review</option>
+              <option value="approved">Approved</option>
+              <option value="rejected">Rejected</option>
+            </select>
+          </div>
+          <div class="card card--flush">
+            <div class="table-wrap"><table class="table" id="productsTable"></table></div>
+            <div class="empty" id="productsEmpty" hidden></div>
+          </div>
+          <p class="hint hint--block">Only products added through the Seller Center appear here. The demo catalogue products are not managed.</p>
+        </section>
+
+        <!-- ===== ORDERS ===== -->
+        <section class="panel" id="panel-orders" hidden>
+          <div class="panel__head"><h2>Orders</h2></div>
+          <div class="toolbar-row">
+            <input type="search" id="oSearch" placeholder="Search by order number or customer" aria-label="Search orders" />
+            <select id="oFilter" aria-label="Filter orders">
+              <option value="all">All statuses</option>
+              <option value="Processing">Processing</option>
+              <option value="Shipped">Shipped</option>
+              <option value="Delivered">Delivered</option>
+              <option value="Cancelled">Cancelled</option>
+            </select>
+          </div>
+          <div class="card card--flush">
+            <div class="table-wrap"><table class="table" id="ordersTable"></table></div>
+            <div class="empty" id="ordersEmpty" hidden></div>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- ============ REASON MODAL (reject / suspend) ============ -->
+  <div class="modal" id="reasonModal" role="dialog" aria-modal="true" aria-labelledby="rmTitle" aria-hidden="true">
+    <div class="modal__box">
+      <button class="icon-btn close-btn" data-close aria-label="Close">✕</button>
+      <h2 id="rmTitle"></h2>
+      <p class="hint" id="rmText"></p>
+      <form class="form" id="reasonForm" novalidate>
+        <div class="field">
+          <label for="rmReason">Reason <span class="optional">(the seller will see this)</span></label>
+          <textarea id="rmReason" rows="3" maxlength="200" placeholder="e.g. The photos are blurry, please upload clearer ones."></textarea>
+          <small class="field-error" id="rmError" hidden>Please give a reason of at least 5 characters.</small>
+        </div>
+        <div class="modal__actions">
+          <button type="button" class="btn btn--ghost" data-close>Cancel</button>
+          <button type="submit" class="btn btn--primary" id="rmConfirm">Confirm</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============ PRODUCT DETAIL MODAL ============ -->
+  <div class="modal" id="detailModal" role="dialog" aria-modal="true" aria-labelledby="dmTitle" aria-hidden="true">
+    <div class="modal__box modal__box--wide">
+      <button class="icon-btn close-btn" data-close aria-label="Close">✕</button>
+      <h2 id="dmTitle">Product</h2>
+      <div id="dmBody"></div>
+      <div class="modal__actions" id="dmActions"></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="products.js"></script>
+  <script src="order-utils.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>

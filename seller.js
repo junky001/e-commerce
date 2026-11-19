@@ -99,6 +99,11 @@
 
   const stockState = (p) => (p.stock === 0 ? 'out' : p.stock <= LOW_STOCK ? 'low' : 'ok');
 
+  // Approval: stores and products made before approvals existed count as approved
+  const productStatus = (p) => p.status || 'approved';
+  const storeStatus = () => (me.store && me.store.status) || 'approved';
+  const isLive = (p) => productStatus(p) === 'approved' && p.active !== false && storeStatus() === 'approved';
+
   function myOrders() {
     const name = me.store.name;
     return store.get(K.orders, []).map((order) => {
@@ -160,7 +165,19 @@
     showPanel();
   }
 
+  function renderBanner() {
+    const s = storeStatus();
+    const note = me.store.reviewNote ? ` Reason: ${esc(me.store.reviewNote)}` : '';
+    const msg = {
+      pending: ['info', '⏳', '<strong>Your store is waiting for approval.</strong> You can add products now. They go live once Soko approves your store and the products.'],
+      rejected: ['bad', '⛔', `<strong>Your store application was rejected.</strong>${note} <button class="link-btn" id="resubmitStoreBtn">Resubmit for review</button>`],
+      suspended: ['bad', '🚫', `<strong>Your store is suspended.</strong>${note} Your products are hidden from the shop. Please contact Soko support.`]
+    }[s];
+    $('#storeBanner').innerHTML = msg ? `<div class="banner banner--${msg[0]}"><span>${msg[1]}</span><p>${msg[2]}</p></div>` : '';
+  }
+
   function renderAll() {
+    renderBanner();
     renderOverview();
     renderProducts();
     renderOrders();
@@ -196,7 +213,7 @@
       { label: 'Total sales', value: money(gross), sub: `${live.length} order${live.length === 1 ? '' : 's'}`, accent: true },
       { label: 'Your earnings', value: money(net), sub: `after ${Math.round(COMMISSION * 100)}% commission` },
       { label: 'Ready for payout', value: money(available), sub: `${delivered.length} delivered` },
-      { label: 'Products', value: products.length, sub: `${products.filter((p) => p.active !== false).length} visible in shop` }
+      { label: 'Products', value: products.length, sub: `${products.filter(isLive).length} live in shop` }
     ].map((s) => `
       <div class="stat ${s.accent ? 'stat--accent' : ''}">
         <div class="stat__label">${s.label}</div>
@@ -228,6 +245,10 @@
     if (open.length) items.push(`<li><span>🧾</span><span><strong>${open.length}</strong> order${open.length === 1 ? '' : 's'} to process. <a href="#orders">Open orders</a></span></li>`);
     if (outCount) items.push(`<li><span>⛔</span><span><strong>${outCount}</strong> product${outCount === 1 ? ' is' : 's are'} out of stock. <a href="#products" data-filter="out">Restock</a></span></li>`);
     if (lowCount) items.push(`<li><span>⚠️</span><span><strong>${lowCount}</strong> product${lowCount === 1 ? ' is' : 's are'} running low. <a href="#products" data-filter="low">View</a></span></li>`);
+    const pendingCount = products.filter((p) => productStatus(p) === 'pending').length;
+    const rejectedCount = products.filter((p) => productStatus(p) === 'rejected').length;
+    if (rejectedCount) items.push(`<li><span>❌</span><span><strong>${rejectedCount}</strong> product${rejectedCount === 1 ? ' was' : 's were'} rejected. <a href="#products" data-filter="rejected">See why</a></span></li>`);
+    if (pendingCount) items.push(`<li><span>⏳</span><span><strong>${pendingCount}</strong> product${pendingCount === 1 ? ' is' : 's are'} waiting for approval. <a href="#products" data-filter="pending">View</a></span></li>`);
     if (!products.length) items.push('<li><span>📦</span><span>You have no products yet. <a href="#products" data-add>Add your first product</a></span></li>');
     $('#attention').innerHTML = items.length ? items.join('') : '<li class="ok"><span>✅</span><span>All good. Nothing needs your attention.</span></li>';
 
@@ -257,7 +278,9 @@
 
     const list = all.filter((p) => {
       if (q && !`${p.title} ${CATEGORY_NAMES[p.category] || ''}`.toLowerCase().includes(q)) return false;
-      if (filter === 'active') return p.active !== false;
+      if (filter === 'active') return isLive(p);
+      if (filter === 'pending') return productStatus(p) === 'pending';
+      if (filter === 'rejected') return productStatus(p) === 'rejected';
       if (filter === 'hidden') return p.active === false;
       if (filter === 'low') return stockState(p) === 'low';
       if (filter === 'out') return stockState(p) === 'out';
@@ -289,7 +312,7 @@
           <tr data-id="${p.id}">
             <td><div class="cell-product">
               <img src="${esc(p.image)}" alt="" />
-              <div><strong>${esc(p.title)}</strong><small>SK-${p.id}</small></div>
+              <div><strong>${esc(p.title)}</strong><small>SK-${p.id}</small>${productStatus(p) === 'pending' ? '<span class="badge-pill badge-pill--warn">Pending review</span>' : productStatus(p) === 'rejected' ? `<span class="badge-pill badge-pill--bad">Rejected</span>${p.reviewNote ? `<small class="reject-note">${esc(p.reviewNote)}</small>` : ''}` : ''}</div>
             </div></td>
             <td>${esc(CATEGORY_NAMES[p.category] || p.category)}</td>
             <td class="num">${money(p.price)}${p.oldPrice ? `<span class="old-price">${money(p.oldPrice)}</span>` : ''}</td>
@@ -298,7 +321,7 @@
               <input type="checkbox" class="js-toggle" ${visible ? 'checked' : ''} aria-label="Show ${esc(p.title)} in the shop" /><span></span>
             </label></td>
             <td><div class="cell-actions">
-              ${visible ? `<a class="mini-btn" href="product.html?id=${p.id}">View</a>` : ''}
+              ${isLive(p) ? `<a class="mini-btn" href="product.html?id=${p.id}">View</a>` : ''}
               <button class="mini-btn" data-action="edit">Edit</button>
               <button class="mini-btn mini-btn--danger" data-action="delete">Delete</button>
             </div></td>
@@ -447,16 +470,24 @@
       images: [...formImages],
       image: formImages[0] || fallbackImg(),
       active: $('#pActive').checked,
-      createdAt: existing ? existing.createdAt : Date.now()
+      createdAt: existing ? existing.createdAt : Date.now(),
+      status: 'pending'
     };
     if (oldPrice !== null) product.oldPrice = oldPrice;
+    if (existing) {
+      // An approved product only goes back for review when its listing content changes
+      const contentChanged = existing.title !== product.title || existing.category !== product.category ||
+        (existing.description || '') !== product.description ||
+        JSON.stringify(existing.images || []) !== JSON.stringify(product.images);
+      product.status = productStatus(existing) === 'approved' && !contentChanged ? 'approved' : 'pending';
+    }
 
     const next = existing ? all.map((p) => (p.id === existing.id ? product : p)) : [...all, product];
     if (!saveProducts(next)) return;
 
     closeModal();
     renderAll();
-    toast(existing ? 'Product updated' : 'Product added', 'success');
+    toast(!existing ? 'Product submitted for review' : product.status === 'pending' ? 'Saved. Your product is back in review.' : 'Product updated', 'success');
   });
 
   /* ---------- Product table actions ---------- */
@@ -577,6 +608,7 @@
 
     order.sellerStatus = order.sellerStatus || {};
     order.sellerStatus[name] = newStatus;
+    (order.history = order.history || []).push({ seller: name, status: newStatus, at: new Date().toISOString(), by: 'seller' });
     store.set(K.orders, orders);
     renderAll();
     toast(`Order #${orderId} marked as ${newStatus}`, 'success');
@@ -648,13 +680,14 @@
       name,
       description: clean($('#stDesc').value),
       payoutPhone: $('#stPhone').value.trim(),
-      createdAt: new Date().toISOString()
+      createdAt: new Date().toISOString(),
+      status: 'pending'
     };
     saveMe();
     e.target.reset();
     location.hash = '#overview';
     render();
-    toast(`Welcome to Soko, ${name}!`, 'success');
+    toast(`Welcome to Soko, ${name}! Your store is waiting for approval.`, 'success');
   });
 
   /* =======================================================
@@ -663,6 +696,14 @@
   document.addEventListener('click', (e) => {
     const t = e.target;
 
+    if (t.closest('#resubmitStoreBtn')) {
+      me.store.status = 'pending';
+      me.store.reviewNote = '';
+      saveMe();
+      renderAll();
+      toast('Your store was sent back for review', 'success');
+      return;
+    }
     if (t.closest('#enableSellerBtn')) {
       me.seller = true;
       saveMe();

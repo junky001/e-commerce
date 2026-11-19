@@ -1,0 +1,24 @@
+/* =========================================================
+   SOKO | admin.css  (admin panel only)
+   Loads after seller.css, which provides the layout, tables,
+   cards, badges and modals.
+   ========================================================= */
+.sc-tag--admin { background: #1e293b; color: #fff; }
+.cell-sub { display: block; color: var(--muted); font-size: 0.8rem; font-weight: 400; }
+.note { display: block; margin-top: 0.3rem; font-size: 0.78rem; color: var(--muted); max-width: 240px; }
+.note--bad { color: #991b1b; }
+
+.detail { display: grid; grid-template-columns: 1fr 1.2fr; gap: 1.25rem; margin: 1rem 0; }
+.detail__images { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; align-content: start; }
+.detail__images img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--bg-tint); }
+.detail__images img:first-child { grid-column: 1 / -1; }
+.detail dl { display: grid; grid-template-columns: auto 1fr; gap: 0.35rem 0.9rem; font-size: 0.92rem; align-content: start; }
+.detail dt { color: var(--muted); }
+.detail dd { margin: 0; color: var(--dark); font-weight: 500; word-break: break-word; }
+.detail__desc { grid-column: 1 / -1; background: var(--bg-tint); border-radius: var(--radius-sm); padding: 0.8rem 1rem; font-size: 0.92rem; white-space: pre-wrap; }
+
+.demo-note { margin-top: 1rem; font-size: 0.8rem; color: var(--muted); text-align: left; }
+
+@media (max-width: 700px) {
+  .detail { grid-template-columns: 1fr; }
+}

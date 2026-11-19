@@ -1,0 +1,71 @@
+/* =========================================================
+   SOKO | orders.css  (My Orders + Track Order pages)
+   Loads after seller.css, which provides the header, cards,
+   badges and buttons these pages share.
+   ========================================================= */
+.orders-main { max-width: 980px; }
+
+/* ---------- Order cards ---------- */
+.order__foot { display: flex; flex-wrap: wrap; gap: 0.6rem; padding: 0.9rem 1.25rem; border-top: 1px solid var(--border); justify-content: flex-end; }
+.order__total { font-weight: 800; color: var(--dark); font-size: 1.05rem; }
+.parcel { border: 1px solid var(--border); border-radius: var(--radius-sm); margin-bottom: 0.75rem; overflow: hidden; }
+.parcel:last-child { margin-bottom: 0; }
+.parcel__head { display: flex; justify-content: space-between; align-items: center; gap: 0.75rem; padding: 0.55rem 0.8rem; background: var(--bg-tint); font-size: 0.88rem; }
+.parcel .item-line { padding: 0.55rem 0.8rem; }
+.item-line { display: flex; align-items: center; gap: 0.75rem; font-size: 0.92rem; }
+.item-line + .item-line { border-top: 1px dashed var(--border); }
+.item-line img { width: 44px; height: 44px; border-radius: 8px; object-fit: cover; background: var(--bg-tint); flex-shrink: 0; }
+.item-line span:nth-child(2) { flex: 1; min-width: 0; }
+.item-line small { display: block; color: var(--muted); }
+.side-lines p { font-size: 0.92rem; }
+.side-lines .order__totals { margin-top: 0.8rem; }
+
+/* ---------- Tracking ---------- */
+.track-wrap { display: grid; gap: 1.25rem; }
+.track-head { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+.track-head h2 { font-size: 1.4rem; letter-spacing: -0.3px; }
+.track-head p { color: var(--muted); font-size: 0.9rem; }
+
+.steps { display: grid; grid-template-columns: repeat(4, 1fr); position: relative; margin: 0.5rem 0 0.5rem; }
+.steps li { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.35rem; position: relative; padding: 0 0.3rem; }
+.steps li::before {
+  content: ""; position: absolute; top: 17px; left: calc(-50% + 20px); right: calc(50% + 20px);
+  height: 3px; background: var(--border);
+}
+.steps li:first-child::before { display: none; }
+.steps li.done::before, .steps li.current::before { background: var(--success); }
+.steps__dot {
+  width: 36px; height: 36px; border-radius: 50%; background: var(--bg-tint); color: var(--muted);
+  display: grid; place-items: center; font-weight: 700; font-size: 0.9rem; border: 3px solid var(--border); position: relative; z-index: 1;
+}
+.steps li.done .steps__dot { background: var(--success); border-color: var(--success); color: #fff; }
+.steps li.current .steps__dot { background: #fff; border-color: var(--success); color: var(--success); box-shadow: 0 0 0 5px rgba(22, 163, 74, 0.15); }
+.steps li > div { display: flex; flex-direction: column; align-items: center; gap: 0.15rem; }
+.steps strong { font-size: 0.9rem; color: var(--dark); }
+.steps small { color: var(--muted); font-size: 0.75rem; min-height: 1em; }
+
+.banner { display: flex; gap: 0.75rem; align-items: flex-start; padding: 0.9rem 1rem; border-radius: var(--radius-sm); font-size: 0.92rem; margin-top: 1rem; }
+.banner p { margin: 0; }
+.banner--info { background: #dbeafe; color: #1e3a8a; }
+.banner--bad { background: #fee2e2; color: #7f1d1d; }
+.banner--warn { background: #fef3c7; color: #78350f; }
+
+.activity { display: flex; flex-direction: column; }
+.activity li { display: flex; gap: 0.8rem; padding: 0.6rem 0; border-bottom: 1px dashed var(--border); font-size: 0.9rem; }
+.activity li:last-child { border-bottom: none; }
+.activity time { color: var(--muted); min-width: 120px; font-size: 0.82rem; flex-shrink: 0; }
+
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+.two-col .card { margin-bottom: 0; }
+
+@media (max-width: 700px) {
+  .two-col { grid-template-columns: 1fr; }
+  .steps { grid-template-columns: 1fr; gap: 0; }
+  .steps li { flex-direction: row; text-align: left; gap: 0.8rem; padding: 0 0 1.1rem 0; align-items: flex-start; }
+  .steps li::before { top: 36px; left: 17px; right: auto; width: 3px; height: calc(100% - 36px); }
+  .steps li:first-child::before { display: block; }
+  .steps li:last-child::before { display: none; }
+  .steps li > div { align-items: flex-start; }
+  .activity li { flex-direction: column; gap: 0.1rem; }
+  .order__foot .btn { flex: 1; }
+}

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Track your Soko order." />
+  <title>Track Order | Soko</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="seller.css" />
+  <link rel="stylesheet" href="orders.css" />
+</head>
+<body class="sc-body">
+
+  <!-- ============ HEADER ============ -->
+  <header class="sc-header">
+    <div class="container sc-header__inner">
+      <a href="index.html" class="logo">Soko<span>.</span></a>
+      <span class="sc-tag">Order Tracking</span>
+      <nav class="sc-header__right" aria-label="Links">
+        <a href="shop.html" class="sc-link">Shop</a>
+        <a href="orders.html" class="sc-link">My orders</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container sc-main orders-main">
+
+    <!-- Look up an order -->
+    <section class="gate" id="lookup">
+      <div class="gate__box gate__box--form">
+        <h1>Track your order</h1>
+        <p>Enter your order number and the phone number you used at checkout.</p>
+        <form class="form" id="trackForm" novalidate>
+          <div class="field">
+            <label for="trId">Order number</label>
+            <input type="text" id="trId" placeholder="e.g. SK12345678" autocomplete="off" required />
+          </div>
+          <div class="field">
+            <label for="trPhone">Phone number</label>
+            <input type="tel" id="trPhone" placeholder="07XX XXX XXX" required />
+          </div>
+          <small class="field-error" id="trError" hidden></small>
+          <button type="submit" class="btn btn--primary btn--lg btn--block">Track order</button>
+        </form>
+        <p class="hint hint--block">Have an account? <a href="orders.html" class="link-more">See all your orders</a>.</p>
+      </div>
+    </section>
+
+    <!-- Result -->
+    <section id="result" hidden></section>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="products.js"></script>
+  <script src="order-utils.js"></script>
+  <script src="track.js"></script>
+</body>
+</html>

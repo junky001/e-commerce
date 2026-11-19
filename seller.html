@@ -80,6 +80,7 @@
       </aside>
 
       <div class="dash__content">
+        <div id="storeBanner"></div>
 
         <!-- ===== OVERVIEW ===== -->
         <section class="panel" id="panel-overview">
@@ -115,8 +116,10 @@
             <input type="search" id="pSearch" placeholder="Search your products" aria-label="Search your products" />
             <select id="pFilter" aria-label="Filter products">
               <option value="all">All products</option>
-              <option value="active">Visible in shop</option>
-              <option value="hidden">Hidden</option>
+              <option value="active">Live in shop</option>
+              <option value="pending">Pending review</option>
+              <option value="rejected">Rejected</option>
+              <option value="hidden">Hidden by me</option>
               <option value="low">Low stock</option>
               <option value="out">Out of stock</option>
             </select>
